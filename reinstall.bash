@@ -24,7 +24,7 @@ for db in $(mysql -e "SHOW DATABASES" | awk 'NR>2 && !/performance_schema/'); do
 done
 
 if ! mysql -e '' &>/dev/null; then
-    cat<<-EOF
+    cat<<-EOF >&2
 	Please, create a /root/.my.cnf file with credentials, example : 
 
 	[client]
