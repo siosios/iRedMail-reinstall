@@ -9,6 +9,16 @@ for db in $(mysql -e "SHOW DATABASES" | awk 'NR>2 && !/performance_schema/'); do
     mysqldump --skip-lock-tables --events --quote-names --opt $db | gzip -9 - > ${db}_dump-$(date +%Y%m%d%H%M).sql.gz
 done
 
+if ! mysql -e '' &>/dev/null; then
+    cat<<-EOF
+	Please, create a /root/.my.cnf file with credentials, example : 
+
+	[client]
+	user=root
+	password="foobarbase"
+	EOF
+fi
+
 mysql<<EOF
 drop database amavisd;
 drop database iredadmin;
