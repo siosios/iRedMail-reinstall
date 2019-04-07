@@ -57,7 +57,7 @@ unlink iredapd
 cd /root
 iredversion=$(
     curl -s https://bitbucket.org/zhb/iredmail/downloads/ |
-    awk -F'[<>]' '/tar\.bz2/{print "$2;exit}'
+    awk -F'[<>]' '/tar\.bz2/{print $2;exit}'
 )
 wget https://bitbucket.org/zhb/iredmail/downloads/$iredversion
 tar xjvf $iredversion
