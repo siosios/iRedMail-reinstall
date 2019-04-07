@@ -66,5 +66,5 @@ cd /var/
 rsync -avP vmail.*/ vmail/
 rm -rf vmail.*
 for db in amavisd iredadmin roundcubemail sogo vmail; do
-    zcat ${db}_dump-*.sql.gz | mariadb $db
+    zcat $bkpdir/${db}_dump-*.sql.gz | mariadb $db
 done 
