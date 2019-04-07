@@ -55,9 +55,12 @@ cd /opt/
 mv www www-$(date +%Y%m%d)
 unlink iredapd
 cd /root
-wget $(curl -s https://bitbucket.org/zhb/iredmail/downloads/ | awk -F'[<>]' '/tar\.bz2/{print "https://bitbucket.org/zhb/iredmail/downloads/"$2;exit}')
-tar xjvf iRedMail-0.9.9.tar.bz2
-cd iRedMail-0.9.9
+wget $(
+    curl -s https://bitbucket.org/zhb/iredmail/downloads/ |
+    awk -F'[<>]' '/tar\.bz2/{print "https://bitbucket.org/zhb/iredmail/downloads/"$2;exit}'
+)
+tar xjvf iRedMail-*.tar.bz2
+cd iRedMail-*
 bash iRedMail.sh
 cd /var/
 rsync -avP vmail.*/ vmail/
