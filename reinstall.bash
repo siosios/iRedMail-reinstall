@@ -49,9 +49,9 @@ apt-get purge sogo roundcube\* postfix\* apache\* php5\* postfix\* dovecot\* ama
 sed -i 's@.*packages.inverse.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 rm /etc/fail2ban/filter.d/roundcube.iredmail.conf
 cd /root
-rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
+/usr/local/bin/rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 cd /opt/
-rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
+/usr/local/bin/rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 mv www www-$(date +%Y%m%d)
 unlink iredapd
 cd /root
