@@ -22,19 +22,17 @@ if ! mysql -e '' &>/dev/null; then
 fi
 
 mysql<<EOF
-drop database amavisd;
-drop database iredadmin;
-drop database roundcubemail;
-drop database sogo;
-drop database vmail;
+DROP DATABASE amavisd;
+DROP DATABASE iredadmin;
+DROP DATABASE roundcubemail;
+DROP DATABASE sogo;
+DROP DATABASE vmail;
 EOF
 systemctl stop mysql
 systemctl disable mysql
 mv /var/vmail /var/vmail.$(date +%y%m%d)
 cp -a /etc/nginx /etc/nginx-$(date +%y%m%d)
-rm /etc/nginx/sites-enabled/*default*
-rm /etc/nginx/templates/sogo.tmpl
-rm /etc/nginx/templates/redirect_to_https.tmpl
+rm -f /etc/nginx/sites-enabled/*default* /etc/nginx/templates/sogo.tmpl /etc/nginx/templates/redirect_to_https.tmpl
 apt-get purge sogo roundcube\* postfix\* apache\* php5\* postfix\* dovecot\* amavis\* clamav\* spamassassin\* awstats\* logwatch freshclam
 sed -i 's@.*packages.inverse.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 rm /etc/fail2ban/filter.d/roundcube.iredmail.conf
