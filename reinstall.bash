@@ -5,6 +5,18 @@ if ((UID!=0)); then
     exit 1
 fi
 
+set -eox pipefail
+
+apt-get update -y
+apt-get install -y wget curl
+if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
+    (
+        cd /usr/local/bin
+        wget 'https://metacpan.org/raw/RMBARKER/File-Rename-0.20/rename.PL?download=1'
+        mv rename.PL rename
+        chmod +x rename
+    )
+fi
 bkpdir=/root/mysql_backup_reinstall_iRedMail
 mkdir -p $bkpdir
 for db in $(mysql -e "SHOW DATABASES" | awk 'NR>2 && !/performance_schema/'); do
