@@ -13,7 +13,7 @@ if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
     (
         cd /usr/local/bin
         wget 'https://metacpan.org/raw/RMBARKER/File-Rename-0.20/rename.PL?download=1'
-        mv rename.PL rename
+        mv rename.PL* rename
         chmod +x rename
     )
 fi
@@ -55,12 +55,13 @@ cd /opt/
 mv www www-$(date +%Y%m%d)
 unlink iredapd
 cd /root
-wget $(
+iredversion=$(
     curl -s https://bitbucket.org/zhb/iredmail/downloads/ |
-    awk -F'[<>]' '/tar\.bz2/{print "https://bitbucket.org/zhb/iredmail/downloads/"$2;exit}'
+    awk -F'[<>]' '/tar\.bz2/{print "$2;exit}'
 )
-tar xjvf iRedMail-*.tar.bz2
-cd iRedMail-*
+wget https://bitbucket.org/zhb/iredmail/downloads/$iredversion
+tar xjvf $iredversion
+cd ${iredversion%.tar.bz2}
 bash iRedMail.sh
 cd /var/
 rsync -avP vmail.*/ vmail/
