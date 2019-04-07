@@ -7,6 +7,7 @@ fi
 
 set -eox pipefail
 
+rm -f /etc/apt/sources.list.d/sogo*
 apt-get update -y
 apt-get install -y wget curl
 if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
