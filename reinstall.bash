@@ -11,13 +11,11 @@ rm -f /etc/apt/sources.list.d/sogo*
 sed -i 's@.*packages\.inverse\.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 apt-get update -y
 apt-get install -y wget curl rsync
-if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
-    (
-        cd /usr/local/bin
-        wget 'https://metacpan.org/raw/RMBARKER/File-Rename-0.20/rename.PL?download=1'
-        mv rename.PL* rename
-        chmod +x rename
-    )
+if ! file $(readlink -f $(type -p rename)) | grep -qi Perl; then
+    cd /usr/local/bin
+    wget 'https://metacpan.org/raw/RMBARKER/File-Rename-0.20/rename.PL?download=1' -O rename
+    chmod +x rename
+    hash -p /usr/local/bin/rename rename
 fi
 
 if ! mysql -e '' &>/dev/null; then
@@ -50,9 +48,9 @@ rm -f /etc/nginx/sites-enabled/*default* /etc/nginx/templates/sogo.tmpl /etc/ngi
 apt-get purge sogo roundcube\* postfix\* apache\* php5\* postfix\* dovecot\* amavis\* clamav\* spamassassin\* awstats\* logwatch freshclam
 rm /etc/fail2ban/filter.d/roundcube.iredmail.conf
 cd /root
-/usr/local/bin/rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
+rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 cd /opt/
-/usr/local/bin/rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
+rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 mv www www-$(date +%Y%m%d)
 unlink iredapd
 cd /root
