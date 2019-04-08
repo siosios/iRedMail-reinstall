@@ -63,10 +63,11 @@ iredversion=$(
 wget https://bitbucket.org/zhb/iredmail/downloads/$iredversion
 tar xjvf $iredversion
 cd ${iredversion%.tar.bz2}
-bash iRedMail.sh
-cd /var/
-rsync -avP vmail.*/ vmail/
-rm -rf vmail.*
-for db in amavisd iredadmin roundcubemail sogo vmail; do
-    zcat $bkpdir/${db}_dump-*.sql.gz | mariadb $db
-done 
+bash iRedMail.sh && {
+    cd /var/
+    rsync -avP vmail.*/ vmail/
+    rm -rf vmail.*
+    for db in amavisd iredadmin roundcubemail sogo vmail; do
+        zcat $bkpdir/${db}_dump-*.sql.gz | mariadb $db
+    done 
+}
