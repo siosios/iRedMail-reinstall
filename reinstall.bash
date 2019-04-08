@@ -8,6 +8,7 @@ fi
 set -eox pipefail
 
 rm -f /etc/apt/sources.list.d/sogo*
+sed -i 's@.*packages.inverse.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 apt-get update -y
 apt-get install -y wget curl rsync
 if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
@@ -47,7 +48,6 @@ mv /var/vmail /var/vmail.$(date +%y%m%d)
 cp -a /etc/nginx /etc/nginx-$(date +%y%m%d)
 rm -f /etc/nginx/sites-enabled/*default* /etc/nginx/templates/sogo.tmpl /etc/nginx/templates/redirect_to_https.tmpl
 apt-get purge sogo roundcube\* postfix\* apache\* php5\* postfix\* dovecot\* amavis\* clamav\* spamassassin\* awstats\* logwatch freshclam
-sed -i 's@.*packages.inverse.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 rm /etc/fail2ban/filter.d/roundcube.iredmail.conf
 cd /root
 /usr/local/bin/rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
