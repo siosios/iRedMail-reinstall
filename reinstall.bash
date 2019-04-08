@@ -8,7 +8,7 @@ fi
 set -eox pipefail
 
 rm -f /etc/apt/sources.list.d/sogo*
-sed -i 's@.*packages.inverse.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
+sed -i 's@.*packages\.inverse\.ca/SOGo/nightly/.*@# &/' /etc/apt/sources.list
 apt-get update -y
 apt-get install -y wget curl rsync
 if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
