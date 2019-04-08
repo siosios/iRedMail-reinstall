@@ -18,11 +18,6 @@ if [[ ! $(file $(readlink -f $(type -p rename))) == *Perl* ]]; then
         chmod +x rename
     )
 fi
-bkpdir=/root/mysql_backup_reinstall_iRedMail
-mkdir -p $bkpdir
-for db in $(mysql -e "SHOW DATABASES" | awk 'NR>2 && !/performance_schema/'); do
-    mysqldump --skip-lock-tables --events --quote-names --opt $db | gzip -9 - > $bkpdir/${db}_dump-$(date +%Y%m%d%H%M).sql.gz
-done
 
 if ! mysql -e '' &>/dev/null; then
     cat<<-EOF >&2
@@ -33,6 +28,11 @@ if ! mysql -e '' &>/dev/null; then
 	password="foobarbase"
 	EOF
 fi
+bkpdir=/root/mysql_backup_reinstall_iRedMail
+mkdir -p $bkpdir
+for db in $(mysql -e "SHOW DATABASES" | awk 'NR>2 && !/performance_schema/'); do
+    mysqldump --skip-lock-tables --events --quote-names --opt $db | gzip -9 - > $bkpdir/${db}_dump-$(date +%Y%m%d%H%M).sql.gz
+done
 
 mysql<<EOF
 DROP DATABASE amavisd;
