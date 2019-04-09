@@ -45,7 +45,7 @@ systemctl disable mysql
 mv /var/vmail /var/vmail.$(date +%y%m%d)
 cp -a /etc/nginx /etc/nginx-$(date +%y%m%d)
 rm -f /etc/nginx/sites-enabled/*default* /etc/nginx/templates/sogo.tmpl /etc/nginx/templates/redirect_to_https.tmpl
-apt-get purge sogo roundcube\* postfix\* apache\* php5\* postfix\* dovecot\* amavis\* clamav\* spamassassin\* awstats\* logwatch freshclam
+apt-get purge sogo roundcube\* postfix\* apache\* php5\* dovecot\* amavis\* clamav\* spamassassin\* logwatch freshclam
 rm /etc/fail2ban/filter.d/roundcube.iredmail.conf
 cd /root
 rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
