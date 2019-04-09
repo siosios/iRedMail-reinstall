@@ -68,4 +68,6 @@ bash iRedMail.sh && {
     for db in amavisd iredadmin roundcubemail sogo vmail; do
         zcat $bkpdir/${db}_dump-*.sql.gz | mariadb $db
     done 
+
+    echo "Think restoring sogo backups in /var/vmail/backups for calendar and contacts"
 }
