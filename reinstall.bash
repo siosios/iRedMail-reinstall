@@ -52,7 +52,7 @@ rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 cd /opt/
 rename "s/iRed.*/$&.$(date +%Y%m%d)/g" iRed*
 mv www www-$(date +%Y%m%d)
-unlink iredapd
+unlink iredapd &>/dev/null || true
 cd /root
 iredversion=$(
     curl -s https://bitbucket.org/zhb/iredmail/downloads/ |
