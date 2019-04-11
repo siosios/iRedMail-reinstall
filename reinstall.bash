@@ -69,5 +69,12 @@ bash iRedMail.sh && {
         zcat $bkpdir/${db}_dump-*.sql.gz | mariadb $db
     done 
 
-    echo "Think restoring sogo backups in /var/vmail/backups for calendar and contacts"
+	cat<<-EOF
+	Think restoring sogo backups in /var/vmail/backups for calendar and contacts :
+
+	cd /var/vmail/backups/sogo
+	tar xjvf dirX.tar.bz2
+	sogo-tool restore -p dirX you@domain.tld
+	sogo-tool restore -f ALL dirX you@domain.tld
+	EOF
 }
