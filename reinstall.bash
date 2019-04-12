@@ -76,5 +76,8 @@ bash iRedMail.sh && {
 	tar xjvf dirX.tar.bz2
 	sogo-tool restore -p dirX you@domain.tld
 	sogo-tool restore -f ALL dirX you@domain.tld
+
+	https://docs.iredmail.org/errors.html#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username
+	for multiple senders
 	EOF
 }
